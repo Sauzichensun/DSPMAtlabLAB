@@ -1,0 +1,24 @@
+clc;
+[signal,Fs1] = audioread("Delta2.wav");
+signal_left = signal(:,1);
+signal_fft = fft(signal_left);
+f_delta2 = (0:(length(signal_fft)-1))*Fs1/length(signal_fft);
+signal_left = signal_left(47236:71392);
+figure;
+plot(f_delta2,signal_fft);
+figure;
+N = length(signal_left);
+plot(0:N-1,signal_left);
+legend("signal_left");
+[x,Fs] = audioread('voice.wav');%x为二维向量分为左声道和右声道
+voiceLeft = x(:,1);
+figure;
+plot(0:1:length(voiceLeft)-1,voiceLeft);
+legend("voiceLeft");
+N2 = length(voiceRight);
+res = conv(signal_left,voiceLeft);
+figure;
+plot(0:1:length(res)-1,res);
+legend("conv");
+audiowrite('test.wav',res,Fs);
+sound(res,Fs);
