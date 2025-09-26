@@ -69,12 +69,16 @@ while halfSize<N
 end
 end
 
-X = randi([1,20],[1,1024]);
+X = randi([1,20],[1,2^12]);
 %我的fft
 tic;
-Y = FFT_iter(X);
-time_FFTNew = toc();
+Y_FFTNEW = FFT_iter(X);
+time_FFTiter = toc();
+tic;
+Y_DITFFT = FFTNew(X);
+time_FFTDIT = toc();
 %matlab fft
 tic;
 res_stan = fft(X);
 time_fft =toc();
+
