@@ -1,16 +1,12 @@
-f = 20e3;
-Fs = 1e6;
-TCircle = 1000;
-t = 0:1/Fs:TCircle*Fs/f/Fs;%1000个周期
-signal = 1*sin(2*pi*f*t);
-figure;
-plot(t,signal);
-%离散化序列
-N = length(t);
-DiscreteSignal(1:N) = signal;
-figure;
-plot((0:N-1),DiscreteSignal);
-Y = AnaLPF(DiscreteSignal,Fs);
-figure;
-plot((0:N-1),Y);
-
+clc;
+f = 1e3;
+%模拟单片机采样
+fs = 1e6;
+Samplepoints = 100000;
+ADCSampleSquency = ADCSample(fs,Samplepoints);
+plot((0:Samplepoints-1),ADCSampleSquency);
+%设置y轴刻度范围
+ylim([-2,2]);
+grid on;
+gain = ScanFre(1e3,50e3);
+out = AnaLPF(ADCSampleSquency,1e6);
