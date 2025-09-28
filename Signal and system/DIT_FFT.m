@@ -25,4 +25,5 @@ Yodd = DIT_FFT(Xodd);
 W = exp((-1j*2*pi/N)*(0:1:N/2-1));
 Y(1:1:N/2) = Yeven + Yodd .* W';
 Y(N/2+1:end) = Yeven - Yodd .* W';
+
 end

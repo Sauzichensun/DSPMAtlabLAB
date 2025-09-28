@@ -6,14 +6,13 @@ function MagToFre = ScanFre(f_start,f_end)
 %   此处显示详细说明
 DACFs = 1e6;
 N = 10000;%确保有足够的周期达到稳态
-MagToFre = zeros(1,(f_end-f_start)/100);
+MagToFre = zeros(floor((f_end)/100),1);
 i=1;
 for f=f_start:100:f_end
-    t = 0:1/DACFs:(N-1)/DACFs;
+    t = 0:1/DACFs:100/f;
     signal = 1*sin(2*pi*f*t);
-    Dsignal(1:N) = signal;
-    OutFilter = AnaLPF(Dsignal,DACFs);
-    MagToFre(i) = max(abs(OutFilter(5000:end)))/1;
+    OutFilter = AnaLPF(signal,DACFs);
+    MagToFre(i) = max(abs(OutFilter(floor(length(OutFilter)/2):end)))/1;
     i = i +1;
 end
 
